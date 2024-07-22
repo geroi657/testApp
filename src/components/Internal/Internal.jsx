@@ -24,10 +24,10 @@ export default function Internal(){
         }
 
         async function AsyncFunction() {
-            await FunctionToWaitFor;
+            const Result = await FunctionToWaitFor;
             console.log("Waiting is no more"); 
         }
-        
+
         return () => {
             console.log("Component did unmount");
         }

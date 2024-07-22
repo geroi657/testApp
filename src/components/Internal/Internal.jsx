@@ -14,12 +14,20 @@ export default function Internal(){
     useEffect(() => {
         console.log("Component did mount");
 
-
-
-        async function AsyncFunction() {
-
+        function FunctionToWaitFor() {
+            return new Promise((resolve) => {
+                resolveSomething(() => {
+                    console.log("Said something!");
+                    resolve("Success!");
+                });
+            });
         }
 
+        async function AsyncFunction() {
+            await FunctionToWaitFor;
+            console.log("Waiting is no more"); 
+        }
+        
         return () => {
             console.log("Component did unmount");
         }

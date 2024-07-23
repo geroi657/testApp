@@ -13,31 +13,30 @@ export default function Internal(){
 
     useEffect(() => {
         console.log("Component did mount");
-
-        function FunctionToWaitFor() {
-            return new Promise((resolve) => {
-                resolveSomething(() => {
-                    console.log("Said something!");
-                    resolve("Success!");
-                });
-            });
-        }
-
-        async function AsyncFunction() {
-            const Result = await FunctionToWaitFor;
-            console.log("Waiting is no more"); 
-        }
-
+    
         return () => {
             console.log("Component did unmount");
         }
     }, [ value ])
+
+    function FunctionToWaitFor() {
+        return new Promise((resolve) => {
+            console.log("Said something!");
+            resolve("Did it!");
+            });
+    }
+    
+    async function AsyncFunction() {
+        const Result = await FunctionToWaitFor();
+        console.log(Result); 
+    }
     
 
     return (
     <div className="divStyle">
         <button className="buttonStyle" onClick={() => valueChange(value + 1)}>Value is - { value }</button>
         <button className="buttonStyle" onClick={() => valueChange(value - value)}>Reset value</button>
+        <button className="buttonStyle" onClick={() => AsyncFunction()}>Test</button>
         <p>{ receivedContext }</p>
     </div>
     );
